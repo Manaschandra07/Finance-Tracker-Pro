@@ -75,6 +75,148 @@
         }
         .guest-btn:hover { background: rgba(30,96,145,0.22); border-color: var(--primary-hi); }
 
+        /* ===== SETTINGS SCREEN ===== */
+        .settings-section {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 16px; padding: 22px; margin-bottom: 20px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.03);
+        }
+        .settings-section h3 { margin-bottom: 16px; }
+        .settings-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 0; border-top: 1px solid var(--border);
+        }
+        .settings-row:first-of-type { border-top: none; padding-top: 0; }
+        .settings-row-label { font-size: 0.92rem; color: var(--text-main); }
+        .settings-row-sub { font-size: 0.75rem; color: var(--text-muted); margin-top: 3px; }
+        .settings-btn {
+            background: rgba(30,96,145,0.1); border: 1px solid var(--border-hi);
+            color: var(--text-main); padding: 8px 16px; border-radius: 8px;
+            cursor: pointer; font-size: 0.85rem; font-weight: 600;
+            font-family: 'DM Sans', sans-serif; transition: 0.2s; white-space: nowrap;
+        }
+        .settings-btn:hover { background: rgba(30,96,145,0.2); border-color: var(--primary-hi); }
+        .settings-account-row { display: flex; align-items: center; gap: 14px; margin-bottom: 4px; }
+        .settings-account-avatar { width: 46px; height: 46px; border-radius: 50%; border: 2px solid var(--border-hi); background: var(--card-2); }
+        /* Toggle switch */
+        .toggle-switch { position: relative; display: inline-block; width: 48px; height: 26px; flex-shrink: 0; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider {
+            position: absolute; cursor: pointer; inset: 0;
+            background-color: var(--bg-2); border: 1px solid var(--border-hi);
+            border-radius: 26px; transition: 0.2s;
+        }
+        .toggle-slider::before {
+            content: ''; position: absolute; height: 18px; width: 18px;
+            left: 3px; bottom: 3px; background-color: var(--text-muted);
+            border-radius: 50%; transition: 0.2s;
+        }
+        .toggle-switch input:checked + .toggle-slider { background-color: var(--primary); border-color: var(--primary-hi); }
+        .toggle-switch input:checked + .toggle-slider::before { transform: translateX(20px); background-color: white; }
+        .toggle-switch input:disabled + .toggle-slider { opacity: 0.4; cursor: not-allowed; }
+        /* ===== END SETTINGS SCREEN ===== */
+
+        /* ===== LOCK SCREEN ===== */
+        #screen-lock {
+            display: none; flex-direction: column; align-items: center;
+            justify-content: center; min-height: 90vh; text-align: center;
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--bg);
+            background-image:
+                radial-gradient(ellipse 800px 400px at 50% -100px, rgba(30,96,145,0.18) 0%, transparent 70%),
+                radial-gradient(ellipse 400px 600px at 100% 50%, rgba(30,96,145,0.06) 0%, transparent 60%);
+            z-index: 5000; padding: 20px; overflow-y: auto;
+        }
+        #screen-lock.active { display: flex; }
+        .lock-icon {
+            width: 64px; height: 64px; border-radius: 50%;
+            background: var(--card); border: 1px solid var(--border-hi);
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 18px; box-shadow: 0 0 24px var(--glow); flex-shrink: 0;
+        }
+        .lock-icon svg { width: 30px; height: 30px; fill: var(--primary-hi); }
+        .lock-title {
+            font-family: 'Rajdhani', sans-serif; font-size: 1.6rem; font-weight: 700;
+            color: var(--primary-hi); letter-spacing: 0.05em; margin-bottom: 6px;
+        }
+        .lock-subtitle { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 24px; max-width: 320px; }
+        .pin-dots { display: flex; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; justify-content: center; }
+        .pin-dot {
+            width: 15px; height: 15px; border-radius: 50%;
+            border: 2px solid var(--border-hi); transition: 0.15s;
+        }
+        .pin-dot.filled { background: var(--primary-hi); border-color: var(--primary-hi); box-shadow: 0 0 10px var(--glow); }
+        .pin-dot.error { border-color: var(--expense); background: var(--expense); }
+        .pin-pad { display: grid; grid-template-columns: repeat(3, 64px); gap: 14px; margin-bottom: 18px; }
+        .pin-key {
+            width: 64px; height: 64px; border-radius: 50%;
+            background: var(--card); border: 1px solid var(--border);
+            color: var(--text-main); font-size: 1.3rem; font-weight: 600;
+            font-family: 'Rajdhani', sans-serif; cursor: pointer; transition: 0.15s;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .pin-key:active { background: var(--card-2); border-color: var(--primary-hi); transform: scale(0.96); }
+        .pin-key.ghost { background: transparent; border: none; cursor: default; }
+        .pin-key.ghost:active { transform: none; background: transparent; }
+        .pin-key svg { width: 22px; height: 22px; fill: var(--text-muted); }
+        .lock-link-row { display: flex; gap: 18px; margin-top: 6px; flex-wrap: wrap; justify-content: center; }
+        .lock-link {
+            background: none; border: none; color: var(--primary-hi);
+            font-size: 0.8rem; font-weight: 600; cursor: pointer;
+            font-family: 'DM Sans', sans-serif; text-decoration: underline;
+            text-decoration-color: rgba(42,132,196,0.4);
+        }
+        .lock-link:hover { color: var(--text-main); }
+        .lock-error { color: var(--expense); font-size: 0.8rem; margin-top: 10px; min-height: 18px; }
+
+        .lock-form { width: 100%; max-width: 320px; display: flex; flex-direction: column; gap: 14px; margin-top: 6px; }
+        .lock-form input, .lock-form select {
+            background: var(--bg-2); border: 1px solid var(--border);
+            color: var(--text-main); padding: 12px; border-radius: 10px;
+            font-size: 0.95rem; width: 100%; outline: none;
+            font-family: 'DM Sans', sans-serif; transition: border-color 0.2s, box-shadow 0.2s;
+            text-align: center;
+        }
+        .lock-form input:focus, .lock-form select:focus { border-color: var(--primary-hi); box-shadow: 0 0 0 3px rgba(30,96,145,0.2); }
+        .lock-form label {
+            color: var(--text-muted); font-weight: 600; font-size: 0.72rem;
+            text-transform: uppercase; letter-spacing: 0.07em;
+            font-family: 'Rajdhani', sans-serif; text-align: left; display: block; margin-bottom: 4px;
+        }
+        .lock-primary-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-hi));
+            color: white; border: none; padding: 13px; border-radius: 10px;
+            font-weight: 700; cursor: pointer; width: 100%;
+            font-family: 'Rajdhani', sans-serif; font-size: 1rem; letter-spacing: 0.08em;
+            transition: 0.2s; box-shadow: 0 4px 16px rgba(30,96,145,0.4);
+        }
+        .lock-primary-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 22px rgba(30,96,145,0.6); }
+        .lock-secondary-btn {
+            background: rgba(30,96,145,0.12); color: var(--text-main);
+            border: 1px solid var(--border-hi); padding: 12px; border-radius: 10px;
+            font-weight: 600; cursor: pointer; width: 100%;
+            font-size: 0.9rem; font-family: 'DM Sans', sans-serif; transition: 0.2s;
+        }
+        .lock-secondary-btn:hover { background: rgba(30,96,145,0.22); border-color: var(--primary-hi); }
+        .biometric-btn {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            background: rgba(29,184,122,0.10); border: 1px solid rgba(29,184,122,0.35);
+            color: var(--income); padding: 12px; border-radius: 10px;
+            font-weight: 700; cursor: pointer; width: 100%; margin-top: 16px; max-width: 320px;
+            font-family: 'Rajdhani', sans-serif; font-size: 0.92rem; letter-spacing: 0.06em; transition: 0.2s;
+        }
+        .biometric-btn:hover { background: rgba(29,184,122,0.18); }
+        .biometric-btn svg { width: 20px; height: 20px; fill: var(--income); }
+        .lock-step { display: none; width: 100%; flex-direction: column; align-items: center; }
+        .lock-step.active { display: flex; }
+        .lock-or-divider {
+            display: flex; align-items: center; gap: 10px; color: var(--text-muted);
+            font-size: 0.75rem; font-family: 'Rajdhani', sans-serif; letter-spacing: 0.1em;
+            margin-top: 14px; width: 100%; max-width: 320px;
+        }
+        .lock-or-divider::before, .lock-or-divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+        /* ===== END LOCK SCREEN ===== */
+
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; right: 0;
             background: rgba(9,21,32,0.97); backdrop-filter: blur(14px);
@@ -105,6 +247,15 @@
             font-family: 'Rajdhani', sans-serif; letter-spacing: 0.06em;
         }
         .profile-container { position: relative; }
+        .gear-btn {
+            width: 38px; height: 38px; border-radius: 50%; cursor: pointer;
+            border: 2px solid var(--border-hi); background: var(--card);
+            display: flex; align-items: center; justify-content: center;
+            transition: 0.2s; padding: 0;
+        }
+        .gear-btn:hover { border-color: var(--primary-hi); box-shadow: 0 0 12px var(--glow); transform: rotate(20deg); }
+        .gear-btn svg { width: 19px; height: 19px; fill: var(--text-muted); transition: 0.2s; }
+        .gear-btn:hover svg { fill: var(--primary-hi); }
         .profile-avatar {
             width: 38px; height: 38px; border-radius: 50%; cursor: pointer;
             border: 2px solid var(--border-hi); background: var(--card); transition: 0.2s;
@@ -312,12 +463,17 @@
                 <h1>Finance Tracker</h1>
                 <div id="backup-reminder" class="backup-status">Cloud Synced</div>
             </div>
-            <div class="profile-container">
+            <div style="display:flex; align-items:center; gap:10px;">
+                <button class="gear-btn" id="gear-btn" onclick="openSettings()" title="Settings">
+                    <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.488.488 0 00-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 00-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+                </button>
+                <div class="profile-container">
                 <img id="user-photo" class="profile-avatar" src="" onclick="toggleProfile()">
                 <div id="profile-menu" class="profile-dropdown">
                     <div id="user-name" style="font-weight:700;font-size:0.9rem;"></div>
                     <span id="user-email" class="dropdown-email"></span>
                     <button class="logout-btn" onclick="logout()">Logout</button>
+                </div>
                 </div>
             </div>
         </div>
@@ -381,9 +537,6 @@
                 <div class="panel">
                     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
                         <h3 style="margin:0;">Transaction History</h3>
-                        <div style="display:flex;gap:6px;">
-                            <button class="btn-outline" id="order-toggle-btn" onclick="toggleTxOrder()" style="font-size:0.72rem;padding:5px 12px;">Latest First</button>
-                        </div>
                     </div>
                     <div class="search-container">
                         <input type="text" id="search-bar" class="search-input" placeholder="Search items..." oninput="renderHome()">
@@ -406,6 +559,184 @@
         </div>
 
         <div id="screen-analysis" class="screen"><div id="analysis-content"></div></div>
+
+        <div id="screen-settings" class="screen">
+            <button class="back-btn" onclick="history.back()">&#8592; Back</button>
+            <h1>Settings</h1>
+
+            <div class="settings-section">
+                <h3>Account</h3>
+                <div class="settings-account-row">
+                    <img id="settings-user-photo" class="settings-account-avatar" src="">
+                    <div style="text-align:left;">
+                        <div id="settings-user-name" style="font-weight:700;font-size:0.95rem;"></div>
+                        <div id="settings-user-email" style="font-size:0.78rem;color:var(--text-muted);"></div>
+                    </div>
+                </div>
+                <div class="settings-row" style="border-top:none;padding-top:14px;">
+                    <div>
+                        <div class="settings-row-label" id="settings-account-status">Cloud Synced</div>
+                        <div class="settings-row-sub">Sign out of this account</div>
+                    </div>
+                    <button class="settings-btn" onclick="logout()" style="background:rgba(193,18,31,0.1); border-color:rgba(193,18,31,0.35); color:var(--expense);">Sign Out</button>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h3>Security</h3>
+                <div class="settings-row" style="border-top:none;padding-top:0;">
+                    <div>
+                        <div class="settings-row-label">Lock Screen</div>
+                        <div class="settings-row-sub">Require a PIN every time you open the app</div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="lock-enabled-toggle" onchange="onLockToggleChange(this)">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="settings-row">
+                    <div>
+                        <div class="settings-row-label">Fingerprint Unlock</div>
+                        <div class="settings-row-sub" id="fingerprint-row-sub">Use your fingerprint or face to unlock</div>
+                    </div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="fingerprint-enabled-toggle" onchange="onFingerprintToggleChange(this)">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+                <div class="settings-row">
+                    <div>
+                        <div class="settings-row-label">PIN Code</div>
+                        <div class="settings-row-sub">Change your unlock PIN</div>
+                    </div>
+                    <button class="settings-btn" onclick="openChangePin()">Change PIN</button>
+                </div>
+                <div class="settings-row">
+                    <div>
+                        <div class="settings-row-label">Security Question</div>
+                        <div class="settings-row-sub">Used to recover your PIN</div>
+                    </div>
+                    <button class="settings-btn" onclick="openChangeSecurityQuestion()">Change</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== LOCK SCREEN ===== -->
+        <div id="screen-lock">
+            <div class="lock-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 1a5 5 0 00-5 5v3H6a2 2 0 00-2 2v9a2 2 0 002 2h12a2 2 0 002-2v-9a2 2 0 00-2-2h-1V6a5 5 0 00-5-5zm-3 5a3 3 0 016 0v3H9V6zm3 7a2 2 0 110 4 2 2 0 010-4z"/></svg>
+            </div>
+
+            <!-- STEP: UNLOCK -->
+            <div class="lock-step active" id="lock-step-unlock">
+                <div class="lock-title">Enter PIN</div>
+                <div class="lock-subtitle">Your finances are protected. Enter your PIN to continue.</div>
+                <div class="pin-dots" id="unlock-dots"></div>
+                <div class="pin-pad" id="unlock-pad"></div>
+                <div class="lock-error" id="unlock-error"></div>
+                <div class="lock-or-divider" id="unlock-or-divider" style="display:none;">OR</div>
+                <button class="biometric-btn" id="biometric-unlock-btn" style="display:none;" onclick="biometricUnlock()">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C7 2 3 6 3 11v3a1 1 0 002 0v-3a7 7 0 0114 0v3a1 1 0 002 0v-3c0-5-4-9-9-9zm0 4a5 5 0 00-5 5v2a1 1 0 002 0v-2a3 3 0 016 0v4a3 3 0 01-3 3 1 1 0 000 2 5 5 0 005-5v-4a5 5 0 00-5-5zm0 4a1 1 0 00-1 1v4a1 1 0 002 0v-4a1 1 0 00-1-1z"/></svg>
+                    Use Fingerprint / Face Unlock
+                </button>
+                <div class="lock-link-row">
+                    <button class="lock-link" onclick="goLockStep('forgot-q')">Forgot PIN?</button>
+                </div>
+            </div>
+
+            <!-- STEP: SETUP PIN (first time) -->
+            <div class="lock-step" id="lock-step-setup">
+                <div class="lock-title">Create a PIN</div>
+                <div class="lock-subtitle">Set a 6-digit PIN to protect your finance data on this app.</div>
+                <div class="pin-dots" id="setup-dots"></div>
+                <div class="pin-pad" id="setup-pad"></div>
+                <div class="lock-error" id="setup-error"></div>
+            </div>
+
+            <!-- STEP: CONFIRM PIN (first time) -->
+            <div class="lock-step" id="lock-step-confirm">
+                <div class="lock-title">Confirm PIN</div>
+                <div class="lock-subtitle">Re-enter your PIN to confirm.</div>
+                <div class="pin-dots" id="confirm-dots"></div>
+                <div class="pin-pad" id="confirm-pad"></div>
+                <div class="lock-error" id="confirm-error"></div>
+            </div>
+
+            <!-- STEP: SECURITY QUESTION SETUP (first time / change) -->
+            <div class="lock-step" id="lock-step-secsetup">
+                <div class="lock-title">Security Question</div>
+                <div class="lock-subtitle">This will help you recover access if you forget your PIN.</div>
+                <div class="lock-form">
+                    <div>
+                        <label>Choose a Question</label>
+                        <select id="secq-select" onchange="onSecQSelectChange(this)">
+                            <option value="pet">What was the name of your first pet?</option>
+                            <option value="city">In which city were you born?</option>
+                            <option value="school">What was the name of your first school?</option>
+                            <option value="nickname">What is your childhood nickname?</option>
+                            <option value="custom">Write my own question...</option>
+                        </select>
+                    </div>
+                    <div id="secq-custom-wrap" style="display:none;">
+                        <label>Your Question</label>
+                        <input type="text" id="secq-custom" placeholder="Type your own security question" autocomplete="off">
+                    </div>
+                    <div>
+                        <label>Your Answer</label>
+                        <input type="text" id="secq-answer" placeholder="Type your answer" autocomplete="off">
+                    </div>
+                    <button class="lock-primary-btn" onclick="saveSecurityQuestion()">Save and Continue</button>
+                </div>
+                <div class="lock-error" id="secsetup-error"></div>
+            </div>
+
+            <!-- STEP: FORGOT PIN - SECURITY QUESTION -->
+            <div class="lock-step" id="lock-step-forgot-q">
+                <div class="lock-title">Security Check</div>
+                <div class="lock-subtitle" id="forgot-q-text">Answer your security question to reset your PIN.</div>
+                <div class="lock-form">
+                    <div>
+                        <label>Your Answer</label>
+                        <input type="text" id="forgot-answer" placeholder="Type your answer" autocomplete="off">
+                    </div>
+                    <button class="lock-primary-btn" onclick="verifySecurityAnswer()">Verify</button>
+                    <button class="lock-secondary-btn" onclick="goLockStep('unlock')">Back</button>
+                </div>
+                <div class="lock-error" id="forgot-error"></div>
+            </div>
+
+            <!-- STEP: RESET PIN -->
+            <div class="lock-step" id="lock-step-reset">
+                <div class="lock-title">Set New PIN</div>
+                <div class="lock-subtitle">Choose a new 6-digit PIN.</div>
+                <div class="pin-dots" id="reset-dots"></div>
+                <div class="pin-pad" id="reset-pad"></div>
+                <div class="lock-error" id="reset-error"></div>
+            </div>
+
+            <!-- STEP: RESET CONFIRM -->
+            <div class="lock-step" id="lock-step-reset-confirm">
+                <div class="lock-title">Confirm New PIN</div>
+                <div class="lock-subtitle">Re-enter your new PIN.</div>
+                <div class="pin-dots" id="reset-confirm-dots"></div>
+                <div class="pin-pad" id="reset-confirm-pad"></div>
+                <div class="lock-error" id="reset-confirm-error"></div>
+            </div>
+
+            <!-- STEP: CHANGE PIN (current PIN check, from Settings) -->
+            <div class="lock-step" id="lock-step-change-current">
+                <div class="lock-title">Enter Current PIN</div>
+                <div class="lock-subtitle">Verify your current PIN to continue.</div>
+                <div class="pin-dots" id="change-current-dots"></div>
+                <div class="pin-pad" id="change-current-pad"></div>
+                <div class="lock-error" id="change-current-error"></div>
+                <div class="lock-link-row">
+                    <button class="lock-link" onclick="cancelLockOverlay()">Cancel</button>
+                </div>
+            </div>
+        </div>
+        <!-- ===== END LOCK SCREEN ===== -->
+
     </div>
 </div>
 
@@ -461,7 +792,475 @@
     let unsubsFirestore = null;
     let unsubsPrefs = null;
     let cashStatsVisible = false;
-    let txOrderDesc = true; // true = latest first, false = oldest first
+
+    /* =========================================================
+       SECURITY: PIN + FINGERPRINT TOGGLE + LOCK SCREEN
+       ========================================================= */
+    let securityProfile = null;   // { pinHash, secQ, secQText, secAHash, lockEnabled, fingerprintEnabled, credentialId }
+    let pendingUid = null;
+    let lockUnlocked = false;
+    let lockOverlayPurpose = 'startup'; // 'startup' | 'change-pin' | 'change-secq'
+    let tempNewPin = null;
+    const PIN_LENGTH = 6;
+    let pinBuffers = {};
+
+    async function sha256Hex(text) {
+        const enc = new TextEncoder().encode(text);
+        const buf = await crypto.subtle.digest('SHA-256', enc);
+        return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+    }
+
+    function securityStorageKey(uid) { return 'ft_security_' + uid; }
+
+    async function loadSecurityProfile(uid) {
+        securityProfile = null;
+        try {
+            if (auth.currentUser && !auth.currentUser.isAnonymous) {
+                const doc = await db.collection('user_prefs').doc(uid).get();
+                if (doc.exists && doc.data().security) {
+                    securityProfile = doc.data().security;
+                }
+            }
+        } catch (e) { /* fall back to local */ }
+        if (!securityProfile) {
+            const local = localStorage.getItem(securityStorageKey(uid));
+            if (local) securityProfile = JSON.parse(local);
+        }
+    }
+
+    async function persistSecurityProfile(uid) {
+        localStorage.setItem(securityStorageKey(uid), JSON.stringify(securityProfile));
+        if (auth.currentUser && !auth.currentUser.isAnonymous) {
+            try {
+                await db.collection('user_prefs').doc(uid).set({ security: securityProfile }, { merge: true });
+            } catch (e) { /* offline - local copy already saved */ }
+        }
+    }
+
+    // --- LOCK OVERLAY SHOW/HIDE ---
+    function showLockOverlay() {
+        document.getElementById('screen-lock').classList.add('active');
+        document.getElementById('main-app').style.display = 'none';
+        document.getElementById('app-nav').style.display = 'none';
+    }
+    function hideLockOverlay() {
+        document.getElementById('screen-lock').classList.remove('active');
+        document.getElementById('main-app').style.display = 'block';
+        document.getElementById('app-nav').style.display = 'flex';
+    }
+
+    // --- LOCK STEP NAVIGATION (with browser back support) ---
+    function showLockStepInternal(stepName) {
+        document.querySelectorAll('.lock-step').forEach(s => s.classList.remove('active'));
+        const el = document.getElementById('lock-step-' + stepName);
+        if (el) el.classList.add('active');
+        ['unlock','setup','confirm','reset','reset-confirm','change-current'].forEach(p => {
+            if (stepName === p) resetPinUI(p);
+        });
+        if (stepName === 'forgot-q') {
+            document.getElementById('forgot-q-text').innerText = securityQuestionText(securityProfile);
+            document.getElementById('forgot-answer').value = '';
+            document.getElementById('forgot-error').innerText = '';
+        }
+        if (stepName === 'secsetup') {
+            document.getElementById('secsetup-error').innerText = '';
+        }
+        if (stepName === 'unlock') {
+            updateBiometricButtonVisibility();
+        }
+    }
+
+    // goLockStep pushes browser history so the back button steps backward through the flow
+    function goLockStep(stepName) {
+        history.pushState({ lockOverlay: true, lockStep: stepName, purpose: lockOverlayPurpose }, '', '');
+        showLockStepInternal(stepName);
+    }
+
+    function securityQuestionText(profile) {
+        const presets = {
+            pet: 'What was the name of your first pet?',
+            city: 'In which city were you born?',
+            school: 'What was the name of your first school?',
+            nickname: 'What is your childhood nickname?'
+        };
+        if (!profile) return presets.pet;
+        if (profile.secQ === 'custom') return profile.secQText || 'Your security question';
+        return presets[profile.secQ] || presets.pet;
+    }
+
+    function onSecQSelectChange(selectEl) {
+        const customWrap = document.getElementById('secq-custom-wrap');
+        customWrap.style.display = selectEl.value === 'custom' ? 'block' : 'none';
+    }
+
+    // --- PIN PAD ---
+    function buildPinPad(padId, stepName) {
+        const pad = document.getElementById(padId);
+        pad.innerHTML = '';
+        const keys = ['1','2','3','4','5','6','7','8','9','','0','back'];
+        keys.forEach(k => {
+            const btn = document.createElement('button');
+            btn.className = 'pin-key';
+            if (k === '') {
+                btn.className += ' ghost';
+                btn.disabled = true;
+            } else if (k === 'back') {
+                btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M22 3H7c-.69 0-1.23.35-1.59.88L0 12l5.41 8.11c.36.53.94.89 1.59.89h15c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2.59 12.59L17 17l-3-3-3 3-1.59-1.59L12.41 12 9.41 9 11 7.41l3 3 3-3L18.59 9 15.59 12l3.82 3.59z"/></svg>';
+                btn.onclick = () => pinKeyPress(stepName, 'back');
+            } else {
+                btn.innerText = k;
+                btn.onclick = () => pinKeyPress(stepName, k);
+            }
+            pad.appendChild(btn);
+        });
+    }
+
+    function buildPinDots(dotsId) {
+        const dots = document.getElementById(dotsId);
+        dots.innerHTML = '';
+        for (let i = 0; i < PIN_LENGTH; i++) {
+            const d = document.createElement('div');
+            d.className = 'pin-dot';
+            dots.appendChild(d);
+        }
+    }
+
+    function resetPinUI(stepName) {
+        pinBuffers[stepName] = [];
+        const dots = document.querySelectorAll('#' + stepName + '-dots .pin-dot');
+        dots.forEach(d => { d.classList.remove('filled','error'); });
+        const errEl = document.getElementById(stepName + '-error');
+        if (errEl) errEl.innerText = '';
+    }
+
+    function pinKeyPress(stepName, key) {
+        if (!pinBuffers[stepName]) pinBuffers[stepName] = [];
+        const buf = pinBuffers[stepName];
+        const dots = document.querySelectorAll('#' + stepName + '-dots .pin-dot');
+
+        if (key === 'back') {
+            if (buf.length > 0) {
+                buf.pop();
+                dots[buf.length].classList.remove('filled');
+            }
+            return;
+        }
+        if (buf.length >= PIN_LENGTH) return;
+        buf.push(key);
+        dots[buf.length-1].classList.add('filled');
+
+        if (buf.length === PIN_LENGTH) {
+            const pin = buf.join('');
+            handlePinComplete(stepName, pin);
+        }
+    }
+
+    function shakeError(stepName, message) {
+        const dots = document.querySelectorAll('#' + stepName + '-dots .pin-dot');
+        dots.forEach(d => d.classList.add('error'));
+        document.getElementById(stepName + '-error').innerText = message;
+        setTimeout(() => { resetPinUI(stepName); }, 600);
+    }
+
+    async function handlePinComplete(stepName, pin) {
+        if (stepName === 'unlock') {
+            const hash = await sha256Hex(pin);
+            if (securityProfile && hash === securityProfile.pinHash) {
+                lockUnlocked = true;
+                hideLockOverlay();
+            } else {
+                shakeError('unlock', 'Incorrect PIN. Try again.');
+            }
+            return;
+        }
+
+        if (stepName === 'setup') {
+            tempNewPin = pin;
+            goLockStep('confirm');
+            return;
+        }
+
+        if (stepName === 'confirm') {
+            if (pin === tempNewPin) {
+                const hash = await sha256Hex(pin);
+                securityProfile = securityProfile || {};
+                securityProfile.pinHash = hash;
+                if (securityProfile.lockEnabled === undefined) securityProfile.lockEnabled = true;
+                if (securityProfile.fingerprintEnabled === undefined) securityProfile.fingerprintEnabled = false;
+                tempNewPin = null;
+                await persistSecurityProfile(pendingUid || (auth.currentUser && auth.currentUser.uid));
+                goLockStep('secsetup');
+            } else {
+                shakeError('confirm', 'PINs do not match. Try again.');
+                tempNewPin = null;
+                setTimeout(() => goLockStep('setup'), 700);
+            }
+            return;
+        }
+
+        if (stepName === 'reset') {
+            tempNewPin = pin;
+            goLockStep('reset-confirm');
+            return;
+        }
+
+        if (stepName === 'reset-confirm') {
+            if (pin === tempNewPin) {
+                const hash = await sha256Hex(pin);
+                securityProfile.pinHash = hash;
+                tempNewPin = null;
+                await persistSecurityProfile(pendingUid || (auth.currentUser && auth.currentUser.uid));
+                lockUnlocked = true;
+                hideLockOverlay();
+            } else {
+                shakeError('reset-confirm', 'PINs do not match. Try again.');
+                tempNewPin = null;
+                setTimeout(() => goLockStep('reset'), 700);
+            }
+            return;
+        }
+
+        if (stepName === 'change-current') {
+            const hash = await sha256Hex(pin);
+            if (securityProfile && hash === securityProfile.pinHash) {
+                goLockStep('reset');
+            } else {
+                shakeError('change-current', 'Incorrect PIN.');
+            }
+            return;
+        }
+    }
+
+    // --- SECURITY QUESTION SETUP / CHANGE ---
+    async function saveSecurityQuestion() {
+        const q = document.getElementById('secq-select').value;
+        const a = document.getElementById('secq-answer').value.trim().toLowerCase();
+        let customText = '';
+        if (q === 'custom') {
+            customText = document.getElementById('secq-custom').value.trim();
+            if (!customText) {
+                document.getElementById('secsetup-error').innerText = 'Please write your security question.';
+                return;
+            }
+        }
+        if (!a) {
+            document.getElementById('secsetup-error').innerText = 'Please enter an answer.';
+            return;
+        }
+        securityProfile.secQ = q;
+        securityProfile.secQText = q === 'custom' ? customText : '';
+        securityProfile.secAHash = await sha256Hex(a);
+        await persistSecurityProfile(pendingUid || (auth.currentUser && auth.currentUser.uid));
+
+        if (lockOverlayPurpose === 'change-secq') {
+            hideLockOverlay();
+        } else {
+            finishFirstTimeSetup();
+        }
+    }
+
+    function finishFirstTimeSetup() {
+        lockUnlocked = true;
+        hideLockOverlay();
+    }
+
+    // --- FORGOT PIN FLOW ---
+    async function verifySecurityAnswer() {
+        const a = document.getElementById('forgot-answer').value.trim().toLowerCase();
+        const hash = await sha256Hex(a);
+        if (securityProfile && hash === securityProfile.secAHash) {
+            document.getElementById('forgot-error').innerText = '';
+            goLockStep('reset');
+        } else {
+            document.getElementById('forgot-error').innerText = 'Incorrect answer. Try again.';
+        }
+    }
+
+    // --- CHANGE PIN / SECURITY QUESTION FROM SETTINGS ---
+    function openChangePin() {
+        lockOverlayPurpose = 'change-pin';
+        showLockOverlay();
+        history.pushState({ lockOverlay: true, lockStep: 'change-current', purpose: 'change-pin' }, '', '');
+        showLockStepInternal('change-current');
+    }
+    function openChangeSecurityQuestion() {
+        lockOverlayPurpose = 'change-secq';
+        showLockOverlay();
+        history.pushState({ lockOverlay: true, lockStep: 'secsetup', purpose: 'change-secq' }, '', '');
+        if (securityProfile && securityProfile.secQ) {
+            document.getElementById('secq-select').value = securityProfile.secQ;
+            onSecQSelectChange(document.getElementById('secq-select'));
+            if (securityProfile.secQ === 'custom') {
+                document.getElementById('secq-custom').value = securityProfile.secQText || '';
+            }
+        }
+        document.getElementById('secq-answer').value = '';
+        showLockStepInternal('secsetup');
+    }
+    function cancelLockOverlay() {
+        history.back();
+    }
+
+    // --- FINGERPRINT (WebAuthn) ---
+    function isWebAuthnAvailable() {
+        return !!(window.PublicKeyCredential && navigator.credentials);
+    }
+
+    function updateBiometricButtonVisibility() {
+        const btn = document.getElementById('biometric-unlock-btn');
+        const divider = document.getElementById('unlock-or-divider');
+        const show = !!(securityProfile && securityProfile.fingerprintEnabled && securityProfile.credentialId && isWebAuthnAvailable());
+        btn.style.display = show ? 'flex' : 'none';
+        divider.style.display = show ? 'flex' : 'none';
+    }
+
+    async function enableBiometric() {
+        if (!isWebAuthnAvailable()) return false;
+        try {
+            const challenge = crypto.getRandomValues(new Uint8Array(32));
+            const userId = crypto.getRandomValues(new Uint8Array(16));
+            const cred = await navigator.credentials.create({
+                publicKey: {
+                    challenge,
+                    rp: { name: "Finance Tracker" },
+                    user: { id: userId, name: "finance-tracker-user", displayName: "Finance Tracker User" },
+                    pubKeyCredParams: [{ alg: -7, type: "public-key" }, { alg: -257, type: "public-key" }],
+                    authenticatorSelection: { authenticatorAttachment: "platform", userVerification: "required" },
+                    timeout: 60000
+                }
+            });
+            if (cred) {
+                securityProfile.credentialId = bufferToBase64(cred.rawId);
+                return true;
+            }
+            return false;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    async function biometricUnlock() {
+        if (!securityProfile || !securityProfile.fingerprintEnabled || !securityProfile.credentialId || !isWebAuthnAvailable()) return;
+        try {
+            const challenge = crypto.getRandomValues(new Uint8Array(32));
+            const assertion = await navigator.credentials.get({
+                publicKey: {
+                    challenge,
+                    allowCredentials: [{ id: base64ToBuffer(securityProfile.credentialId), type: 'public-key' }],
+                    userVerification: "required",
+                    timeout: 60000
+                }
+            });
+            if (assertion) {
+                lockUnlocked = true;
+                hideLockOverlay();
+            }
+        } catch (e) {
+            document.getElementById('unlock-error').innerText = 'Fingerprint unlock failed. Use your PIN.';
+        }
+    }
+
+    function bufferToBase64(buf) {
+        return btoa(String.fromCharCode(...new Uint8Array(buf)));
+    }
+    function base64ToBuffer(b64) {
+        const binary = atob(b64);
+        const bytes = new Uint8Array(binary.length);
+        for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+        return bytes;
+    }
+
+    // --- SETTINGS SCREEN TOGGLES ---
+    function refreshSettingsUI() {
+        const user = auth.currentUser;
+        if (!user) return;
+        document.getElementById('settings-user-photo').src = document.getElementById('user-photo').src;
+        document.getElementById('settings-user-name').innerText = document.getElementById('user-name').innerText;
+        document.getElementById('settings-user-email').innerText = document.getElementById('user-email').innerText;
+        document.getElementById('settings-account-status').innerText = document.getElementById('backup-reminder').innerText;
+
+        document.getElementById('lock-enabled-toggle').checked = !!(securityProfile && securityProfile.lockEnabled !== false);
+
+        const fpToggle = document.getElementById('fingerprint-enabled-toggle');
+        const fpSub = document.getElementById('fingerprint-row-sub');
+        if (!isWebAuthnAvailable()) {
+            fpToggle.checked = false;
+            fpToggle.disabled = true;
+            fpSub.innerText = 'Not supported on this device or browser';
+        } else {
+            fpToggle.disabled = false;
+            fpToggle.checked = !!(securityProfile && securityProfile.fingerprintEnabled);
+            fpSub.innerText = 'Use your fingerprint or face to unlock';
+        }
+    }
+
+    async function onLockToggleChange(checkbox) {
+        securityProfile = securityProfile || {};
+        securityProfile.lockEnabled = checkbox.checked;
+        await persistSecurityProfile(pendingUid || (auth.currentUser && auth.currentUser.uid));
+    }
+
+    async function onFingerprintToggleChange(checkbox) {
+        securityProfile = securityProfile || {};
+        if (checkbox.checked) {
+            const ok = await enableBiometric();
+            if (ok) {
+                securityProfile.fingerprintEnabled = true;
+                await persistSecurityProfile(pendingUid || (auth.currentUser && auth.currentUser.uid));
+            } else {
+                checkbox.checked = false;
+                alert("Could not enable fingerprint unlock on this device.");
+            }
+        } else {
+            securityProfile.fingerprintEnabled = false;
+            await persistSecurityProfile(pendingUid || (auth.currentUser && auth.currentUser.uid));
+        }
+    }
+
+    // --- SETTINGS NAVIGATION ---
+    function openSettings() {
+        if (document.getElementById('profile-menu').classList.contains('active')) toggleProfile();
+        refreshSettingsUI();
+        navigateTo('settings');
+    }
+
+    // --- ENTRY POINT: called after auth succeeds ---
+    async function runSecurityCheck(uid) {
+        pendingUid = uid;
+        lockUnlocked = false;
+        lockOverlayPurpose = 'startup';
+
+        buildPinDots('unlock-dots');
+        buildPinDots('setup-dots');
+        buildPinDots('confirm-dots');
+        buildPinDots('reset-dots');
+        buildPinDots('reset-confirm-dots');
+        buildPinDots('change-current-dots');
+        buildPinPad('unlock-pad', 'unlock');
+        buildPinPad('setup-pad', 'setup');
+        buildPinPad('confirm-pad', 'confirm');
+        buildPinPad('reset-pad', 'reset');
+        buildPinPad('reset-confirm-pad', 'reset-confirm');
+        buildPinPad('change-current-pad', 'change-current');
+
+        showLockOverlay();
+        await loadSecurityProfile(uid);
+
+        if (!securityProfile || !securityProfile.pinHash) {
+            securityProfile = securityProfile || {};
+            history.pushState({ lockOverlay: true, lockStep: 'setup', purpose: 'startup' }, '', '');
+            showLockStepInternal('setup');
+        } else if (securityProfile.lockEnabled === false) {
+            lockUnlocked = true;
+            hideLockOverlay();
+        } else {
+            history.pushState({ lockOverlay: true, lockStep: 'unlock', purpose: 'startup' }, '', '');
+            showLockStepInternal('unlock');
+        }
+    }
+    /* =========================================================
+       END SECURITY SECTION
+       ========================================================= */
 
     // --- AUTH ---
     async function loginWithGoogle() {
@@ -474,6 +1273,10 @@
     function logout() {
         if(unsubsFirestore) { unsubsFirestore(); unsubsFirestore = null; }
         if(unsubsPrefs) { unsubsPrefs(); unsubsPrefs = null; }
+        lockUnlocked = false;
+        securityProfile = null;
+        pendingUid = null;
+        document.getElementById('screen-lock').classList.remove('active');
         auth.signOut();
         if(document.getElementById('profile-menu').classList.contains('active')) toggleProfile();
     }
@@ -500,11 +1303,13 @@
                 document.getElementById('backup-reminder').innerText = "Cloud Synced";
             }
             startSync(user.uid);
+            runSecurityCheck(user.uid);
         } else {
             authScreen.style.display = '';
             authScreen.classList.add('active');
             mainApp.style.display = 'none';
             navBar.style.display = 'none';
+            document.getElementById('screen-lock').classList.remove('active');
             entries = [];
             renderHome();
         }
@@ -529,6 +1334,17 @@
                 customCategories = [];
             }
             populateCategories();
+
+            // Cross-device sync of security settings (PIN, security Q&A, lock/fingerprint toggles).
+            // Does NOT re-trigger the lock screen mid-session - just keeps the local copy
+            // and the Settings screen (if open) in sync with changes made on other devices.
+            if (doc.exists && doc.data().security) {
+                securityProfile = doc.data().security;
+                localStorage.setItem(securityStorageKey(uid), JSON.stringify(securityProfile));
+                if (document.getElementById('screen-settings').classList.contains('active')) {
+                    refreshSettingsUI();
+                }
+            }
         });
     }
 
@@ -636,14 +1452,6 @@
         });
     }
 
-    // --- ORDER TOGGLE ---
-    function toggleTxOrder() {
-        txOrderDesc = !txOrderDesc;
-        const btn = document.getElementById('order-toggle-btn');
-        if (btn) btn.innerText = txOrderDesc ? 'Latest First' : 'Oldest First';
-        renderHome();
-    }
-
     // --- CASH TOGGLE ---
     function toggleCashStats() {
         cashStatsVisible = !cashStatsVisible;
@@ -674,6 +1482,9 @@
             document.getElementById('screen-home').classList.add('active');
             document.getElementById('nav-btn-home').classList.add('active');
             renderHome();
+        } else if (viewId === 'settings') {
+            document.getElementById('screen-settings').classList.add('active');
+            refreshSettingsUI();
         } else {
             document.getElementById('screen-analysis').classList.add('active');
             document.getElementById('nav-btn-analysis').classList.add('active');
@@ -685,7 +1496,25 @@
     }
 
     window.addEventListener('popstate', (e) => {
-        if (e.state && e.state.viewId) navigateTo(e.state.viewId, e.state.params, false);
+        const state = e.state;
+
+        if (state && state.lockOverlay) {
+            if (lockUnlocked) return; // stale lock-step entry after unlock - ignore
+            showLockStepInternal(state.lockStep || 'unlock');
+            return;
+        }
+
+        // Backing out of a change-PIN / change-security-question overlay
+        if (document.getElementById('screen-lock').classList.contains('active') && lockUnlocked) {
+            hideLockOverlay();
+        }
+
+        if (!lockUnlocked && document.getElementById('screen-lock').classList.contains('active')) {
+            // Still at the startup lock screen with nothing meaningful behind it
+            return;
+        }
+
+        if (state && state.viewId) navigateTo(state.viewId, state.params, false);
         else navigateTo('home', {}, false);
     });
     window.history.replaceState({ viewId: 'home', params: {} }, '', '');
@@ -796,12 +1625,11 @@
             }
         });
 
-        // Sort filtered entries by date then ts based on order setting
+        // Sort filtered entries by date then ts, latest first
         filtered.sort((a, b) => {
             const dateDiff = new Date(b.date) - new Date(a.date);
             const tsDiff   = (b.ts || 0) - (a.ts || 0);
-            if (txOrderDesc) return dateDiff !== 0 ? dateDiff : tsDiff;
-            else             return dateDiff !== 0 ? -dateDiff : -tsDiff;
+            return dateDiff !== 0 ? dateDiff : tsDiff;
         });
 
         filtered.forEach((e, rowIndex) => {
@@ -946,7 +1774,7 @@
         const content = document.getElementById('analysis-content');
         const dayFilteredEntries = entries.filter(e => e.date === date);
         content.innerHTML = `<button class="back-btn" onclick="window.history.back()">&#8592; Back</button><h1>${prettyDate(date)} Purchased Items</h1>` + buildInlineCategoryBreakdown(dayFilteredEntries);
-        dayFilteredEntries.sort((a,b) => txOrderDesc ? (b.ts||0) - (a.ts||0) : (a.ts||0) - (b.ts||0)).forEach(e => {
+        dayFilteredEntries.sort((a,b) => (b.ts||0) - (a.ts||0)).forEach(e => {
             if (resolveType(e) === 'expense') {
                 const cashTag = getMode(e) === 'cash' ? ` <span style="font-size:0.68rem;color:var(--text-muted);">(cash)</span>` : '';
                 content.insertAdjacentHTML('beforeend',
